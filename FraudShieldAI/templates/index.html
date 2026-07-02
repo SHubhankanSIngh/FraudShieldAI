@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FraudShield AI | AI Public Safety Intelligence Platform</title>
+
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ Sidebar (desktop) ============ -->
+  <aside class="sidebar d-none d-lg-flex flex-column">
+    <div class="sidebar-brand">
+      <div class="shield-badge" id="sidebarShield">
+        <i class="bi bi-shield-fill-check"></i>
+      </div>
+      <div>
+        <h1 class="brand-title">FraudShield <span>AI</span></h1>
+        <p class="brand-subtitle">Public Safety Intelligence</p>
+      </div>
+    </div>
+
+    <div class="sidebar-stats">
+      <div class="stat-card">
+        <span class="stat-label">Messages Analyzed</span>
+        <span class="stat-value" id="statTotal">0</span>
+      </div>
+      <div class="stat-card danger">
+        <span class="stat-label">Scams Detected</span>
+        <span class="stat-value" id="statScam">0</span>
+      </div>
+      <div class="stat-card safe">
+        <span class="stat-label">Safe Messages</span>
+        <span class="stat-value" id="statSafe">0</span>
+      </div>
+    </div>
+
+    <div class="sidebar-helpline">
+      <p class="helpline-eyebrow">National Cyber Crime Helpline</p>
+      <a href="tel:1930" class="helpline-number"><i class="bi bi-telephone-fill"></i> 1930</a>
+      <a href="https://cybercrime.gov.in" target="_blank" rel="noopener" class="helpline-link">cybercrime.gov.in</a>
+    </div>
+
+    <div class="sidebar-footer">
+      Smart India Hackathon &middot; Prototype
+    </div>
+  </aside>
+
+  <!-- ============ Chat column ============ -->
+  <main class="chat-column">
+
+    <!-- Header -->
+    <header class="chat-header">
+      <div class="d-flex align-items-center gap-2">
+        <div class="shield-badge shield-badge-sm d-lg-none">
+          <i class="bi bi-shield-fill-check"></i>
+        </div>
+        <div>
+          <h2 class="chat-header-title">FraudShield AI</h2>
+          <p class="chat-header-status">
+            <span class="status-dot"></span> Online &middot; Analyzing in real time
+          </p>
+        </div>
+      </div>
+      <button class="btn btn-sm btn-outline-light d-none d-md-inline-flex align-items-center gap-1" id="clearChatBtn">
+        <i class="bi bi-trash3"></i> Clear
+      </button>
+    </header>
+
+    <!-- Messages -->
+    <section class="chat-window" id="chatWindow">
+      <div class="day-divider"><span>Today</span></div>
+
+      <div class="msg-row bot">
+        <div class="avatar bot-avatar"><i class="bi bi-shield-lock-fill"></i></div>
+        <div class="bubble bot-bubble">
+          <p class="mb-0">
+            Namaste! I'm <strong>FraudShield AI</strong>, your Cyber Crime Assistant.
+            Paste any suspicious SMS, WhatsApp or email message below and I'll analyze it
+            instantly for scam patterns, risk level, and safety advice.
+          </p>
+          <span class="bubble-time">System</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typing indicator -->
+    <div class="typing-row d-none" id="typingRow">
+      <div class="avatar bot-avatar"><i class="bi bi-shield-lock-fill"></i></div>
+      <div class="bubble bot-bubble typing-bubble">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <footer class="chat-input-bar">
+      <form id="chatForm" class="d-flex align-items-end gap-2 w-100" autocomplete="off">
+        <textarea
+          id="messageInput"
+          class="form-control chat-textarea"
+          placeholder="Paste the suspicious message here..."
+          rows="1"
+          maxlength="1000"
+          required></textarea>
+        <button type="submit" class="send-btn" id="sendBtn" aria-label="Send">
+          <i class="bi bi-send-fill"></i>
+        </button>
+      </form>
+    </footer>
+
+  </main>
+</div>
+
+<!-- Emergency modal (opened from a Scam result card) -->
+<div class="modal fade" id="emergencyModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content emergency-modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-exclamation-octagon-fill me-2"></i>Emergency Response Steps</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ol class="emergency-steps-list" id="emergencyStepsList"></ol>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <span class="text-muted small">Cyber Crime Helpline</span>
+        <a href="tel:1930" class="btn btn-danger btn-sm"><i class="bi bi-telephone-fill me-1"></i>Call 1930</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
